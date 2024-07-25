@@ -3,7 +3,7 @@ import { collection, addDoc, getDocs } from 'firebase/firestore';
 
 const productCollection = collection(db, 'products');
 
-export const addProdcut = async (product) => {
+export const addProduct = async (product) => {
     await addDoc(productCollection, product);
 };
 

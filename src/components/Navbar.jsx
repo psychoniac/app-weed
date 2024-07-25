@@ -1,9 +1,23 @@
 import { Link } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth, logout } from '../services/authService';
+import { logout } from '../services/authService';
+import { useEffect, useState } from 'react';
+import { doc, getDoc } from 'firebase/firestore';
+import { auth, db } from '../firebaseConfig';
 
 const Navbar = () => {
     const [user] = useAuthState(auth);
+    const [role, setRole] = useState('');
+
+    useEffect(() => {
+        if (user) {
+            const fetchUserRole = async () => {
+                const userDoc = await getDoc(doc(db, 'users', user.uid));
+                setRole(userDoc.data()?.role || '');
+            };
+            fetchUserRole();
+        }
+    }, [user ]);
 
     return (
         <nav className='navbar navbar-expand-lg navbar-light bg-light'>
@@ -18,6 +32,11 @@ const Navbar = () => {
                             <li className='nav-item'>
                                 <Link className='nav-link' to="/products">Produits</Link>
                             </li>
+                            {role === 'admin' && (
+                                <li className='nav-item'>
+                                    <Link className='nav-link' to="/admin">Admin</Link>
+                                </li>
+                            )}
                             <li className='nav-item'>
                                 <Link className='nav-link' to="/profile">Mon profil</Link>
                             </li>
