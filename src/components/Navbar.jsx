@@ -1,23 +1,34 @@
 import { Link } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { logout } from '../services/authService';
-import { useEffect, useState } from 'react';
+import { useEffect} from 'react';
 import { doc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../firebaseConfig';
+import { useAppState, useAppDispatch } from '../context/AppContext';
 
 const Navbar = () => {
-    const [user] = useAuthState(auth);
-    const [role, setRole] = useState('');
+    const { user, role } = useAppState();
+    const dispatch = useAppDispatch();
+    const [firebaseUser] = useAuthState(auth)
 
     useEffect(() => {
-        if (user) {
+        // si l'utilisateur est connecté, on récupère ses infos et son role
+        if (firebaseUser) {
             const fetchUserRole = async () => {
-                const userDoc = await getDoc(doc(db, 'users', user.uid));
-                setRole(userDoc.data()?.role || '');
+                const userDoc = await getDoc(doc(db, 'users', firebaseUser.uid));
+               const userRole = userDoc.data()?.role || '';
+
+               // mise a jour de l'état global avec les info de l'utilisateur et son role
+               dispatch({ type: 'SET_USER', payload: firebaseUser});
+               dispatch({ type: 'SET_ROLE', payload: userRole });
             };
             fetchUserRole();
+        } else {
+            // si l'utilisateur se déconnecte, on réinitialise l'état global
+            dispatch({ type: 'SET_USER', payload: null});
+            dispatch({ type: 'SET_ROLE', payload: ''});
         }
-    }, [user ]);
+    }, [firebaseUser, dispatch ]);
 
     return (
         <nav>
