@@ -10,7 +10,7 @@ const Admin = () => {
     }
 
     return (
-        <div className='container'>
+        <div>
             <h1>Page Administrateur</h1>
             <ProductForm />
         </div>

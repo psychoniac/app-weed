@@ -19,19 +19,19 @@ const Register = () => {
     };
 
     return (
-        <div className="container">
+        <div>
             <h1>Inscription</h1>
             <form onSubmit={handleSubmit}>
-                <div className="form-group">
+                <div>
                     <label>Email</label>
-                    <input type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                 </div>
-                <div className="form-group">
+                <div>
                     <label>Mot de passe</label>
-                    <input type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
                 </div>
-                {error && <p className="text-danger">{error}</p>}
-                <button type="submit" className="btn btn-primary">Inscription</button>
+                {error && <p>{error}</p>}
+                <button type="submit">Inscription</button>
             </form>
         </div>
     );

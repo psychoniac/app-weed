@@ -20,45 +20,45 @@ const Navbar = () => {
     }, [user ]);
 
     return (
-        <nav className='navbar navbar-expand-lg navbar-light bg-light'>
-            <Link className='navbar-brand' to='/'>WEED</Link>
-            <div className='collapse navbar-collapse'>
-                <ul className='navbar-nav mr-auto'>
-                    <li className='nav-item'>
-                        <Link className='nav-link' to='/'>HOME</Link>
+        <nav>
+            <Link to='/'>WEED</Link>
+            <div>
+                <ul>
+                    <li>
+                        <Link to='/'>HOME</Link>
                     </li>
                     {user ? (
                         <>
-                            <li className='nav-item'>
-                                <Link className='nav-link' to="/products">Produits</Link>
+                            <li>
+                                <Link to="/products">Produits</Link>
                             </li>
                             {role === 'admin' && (
-                                <li className='nav-item'>
-                                    <Link className='nav-link' to="/admin">Admin</Link>
+                                <li>
+                                    <Link to="/admin">Admin</Link>
                                 </li>
                             )}
-                            <li className='nav-item'>
-                                <Link className='nav-link' to="/profile">Mon profil</Link>
+                            <li>
+                                <Link to="/profile">Mon profil</Link>
                             </li>
-                            <li className='nav-item'>
-                                <Link className='nav-item' to='/cart'>Mon panier</Link>
+                            <li>
+                                <Link  to='/cart'>Mon panier</Link>
                             </li>
-                            <li className='nav-item'>
-                                <button className='btn btn-link nav-link' onClick={logout}>Déconnexion</button>
+                            <li>
+                                <button onClick={logout}>Déconnexion</button>
                             </li>
                         </>
                     ) : (
                         <>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/register">Inscription</Link>
+                            <li>
+                                <Link to="/register">Inscription</Link>
                             </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/login">Connexion</Link>
+                            <li>
+                                <Link to="/login">Connexion</Link>
                             </li>
                         </>
                     )}
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/about">A propos</Link>
+                    <li>
+                        <Link to="/about">A propos</Link>
                     </li>
                 </ul>
             </div>

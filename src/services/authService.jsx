@@ -6,10 +6,13 @@ export const register = async (email, password) => {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
+    // Définir le rôle basé sur l'email
+    const role = email === 'jlnko@hotmail.fr' ? 'admin' : 'client';
+
     // Stockez des information supplémentaires dans firestore
     await setDoc(doc(db, 'users', user.uid), {
         email: user.email,
-        role: 'client',  // par défaut, tous les utilisateurs sont des clients
+        role: role,  // par défaut, tous les utilisateurs sont des clients
     });
 
     return user;
